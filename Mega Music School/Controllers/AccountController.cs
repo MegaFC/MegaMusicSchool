@@ -14,14 +14,11 @@ namespace Mega_Music_School.Controllers
 {
     public class AccountController : Controller
     {
-
         private readonly ApplicationDbContext _db;
         private readonly UserManager<UserAndAdminProfile> _userManager;
         private readonly SignInManager<UserAndAdminProfile> _signInManager;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IAccountService _accountService;
-
-
         public AccountController(ApplicationDbContext db, UserManager<UserAndAdminProfile> injectedUserManager, SignInManager<UserAndAdminProfile> injectedSignInManager,
             IWebHostEnvironment injectedWebHostEnvironment, IAccountService injectedAccountService)
         {
