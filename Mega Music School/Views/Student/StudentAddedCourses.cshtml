@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Mega_Music_School.Models.StudentCourse>
+@{
+    ViewData["Title"] = "Choose Course";
+    Layout = "~/Views/Shared/_StudentDashboardLayout.cshtml";
+}
+<div class="card">
+    <div class="card-body">
+        <h3 class="text-center text-primary"><strong>COURSES YOU REGISTER</strong></h3>
+        <section class="section">
+            @if (Model != null && Model.Count() > 0)
+            {
+                <table table class="table table-bordered">
+                    <thead>
+                        <tr class="text-center">
+                            <th scope="col">Course</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var chosen in Model)
+                        {
+                            <tr class="text-center">
+                                <td width="20%"> @chosen.Course.Name</td>
+                            </tr>
+                         }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <h2 class="text-secondary text-center py-5">Add Course To See.</h2>
+            }
+        </section>
+    </div>
+</div>
+<h3>Click Here To Print</h3>

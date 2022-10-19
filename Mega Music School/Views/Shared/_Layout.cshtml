@@ -1,0 +1,276 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Mega_Music_School</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/bootstrap-grid.css" rel="stylesheet" />
+    <script src="~/js/sweetalert.min.js"></script>
+    <link href="~/css/font-awesome.min.css" rel="stylesheet" />
+    <script>
+        function errorAlert(message) {
+            Swal.fire({
+                icon: 'error',
+                text: message,
+                confirmButtonColor: "#00A7EF",
+                timer: 30000,
+            })
+        }
+
+        function infoAlert(message) {
+            Swal.fire({
+                icon: 'info',
+                text: message,
+                confirmButtonColor: "#00A7EF",
+            })
+        }
+
+        function infoAlertWithStyles(message) {
+            Swal.fire({
+                title: 'Notification',
+                icon: 'info',
+                text: message,
+            })
+        }
+
+        function successAlert(message) {
+            Swal.fire({
+                icon: 'success',
+                text: message,
+                confirmButtonColor: "#00A7EF",
+                timer: 30000,
+            })
+        }
+
+        function newErrorAlert(message, url) {
+            Swal.fire({
+                icon: 'error',
+                text: message,
+                confirmButtonColor: "#00A7EF",
+            }).then((isConfirm) => {
+                if (isConfirm) {
+                    location.reload(url);
+                }
+            })
+        }
+
+        function errorAlertWithRedirect(message, url) {
+            Swal.fire({
+                title: "Error",
+                text: message,
+                icon: "error",
+                timer: 30000,
+                confirmButtonColor: "#00A7EF",
+                overlay: "background - color: rgba(43, 165, 137, 0.45)",
+            }).then(function () {
+
+                location.href = url;
+            })
+        }
+
+        function newSuccessAlert(message, url) {
+            Swal({
+                icon: 'success',
+                text: message,
+                confirmButtonColor: "#00A7EF",
+            }).then((isConfirm) => {
+                if (isConfirm) {
+                    location.reload(url);
+                }
+            })
+        }
+
+        function successAlertWithRedirect(message, url) {
+            Swal.fire({
+                title: "Success",
+                text: message,
+                icon: "success",
+                timer: 30000,
+                confirmButtonColor: "#00A7EF",
+                overlay: "background - color: rgba(43, 165, 137, 0.45)",
+            }).then(function () {
+
+                location.href = url;
+            })
+        }
+
+        function errorAlertwithTwoButtons(yesUrl, noUrl, newUrl, errorTitle) {
+            Swal.fire({
+                title: errorTitle,
+                text: "",
+                icon: "error",
+                buttons: {
+                    cancle: "No",
+                    confirmButtonColor: "#00A7EF",
+                    change: "Yes",
+                    new: "Create Pin",
+                },
+            })
+                .then((status) => {
+                    debugger;
+                    switch (status) {
+                        case "change":
+                            location.href = yesUrl;
+                            break;
+                        case "new":
+                            location.href = newUrl;
+                            break;
+                        default:
+                            location.href = noUrl;
+                    }
+                });
+        }
+
+        function SweeTest(yesUrl, noUrl) {
+            Swal.fire({
+                title: "Unverified E-mail Address",
+                text: "Check your inbox Or Change email",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#00A7EF",
+                confirmButtonText: "Resend Email",
+                cancelButtonText: "Change Email",
+                cancelButtonColor: "#D3AF71",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            })
+                .then((result) => {
+                    debugger
+                    if (result.isConfirmed) {
+                        location.href = yesUrl
+                    }
+                    else {
+                        location.href = noUrl
+                    }
+
+                });
+        }
+    </script>
+
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm bg-light text-dark border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-2">
+                        <a class="navbar-brand text-danger" asp-area="" asp-controller="Home" asp-action="Index"><strong>Mega_Music_School</strong></a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
+                    <div class="col-md-6 ml-auto text-primary">
+                        <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                            <ul class="navbar-nav flex-grow-1">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><span class="text-primary">Home Page</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Learning"><span class="text-primary">Learning Page</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Entertainment"><span class="text-primary">Entertainment</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2 ml-5 text-primary">
+                        <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                            <ul class="navbar-nav flex-grow-1">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="StudentRegister"><span class="text-primary">Register</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login"><span class="text-primary">Login</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container-fluid">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <footer class="border-top footer text-muted">
+        <div class="container-fluid bg-dark">
+            <div class="row">
+                <div class="col-4 text-white align-center ">
+                    <h3 class="text-justify"><strong>OUR ADDRESSES</strong></h3>
+                    <h4 class="address"><strong>Nigeria Office</strong></h4>
+                    01 Mega-Lane
+                    New G.R.A,
+                    Enugu State,
+                    Nigeria.
+                    <br><br>
+                    <h4 class="address "><strong>USA Office</strong></h4>
+                    Block 43 Mark-Donald Avenue
+                    California.
+                    USA.
+                </div>
+
+                <div class="col-4 text-white">
+                    <h4 class="address"><strong>BE CERTIFIED PROFESSIONALLY ON</strong></h4>
+                    <div style="font-family: sans-serif;">
+                        <p><a href="#" class="text-white ">Piano</a></p>
+                        <p><a href="#" class="text-white mt-5">Base & Lead Guitar</a></p>
+                        <p><a href="#" class="text-white">Violin</a></p>
+                        <p><a href="#" class="text-white">Voicing</a></p>
+                        <p><a href="#" class="text-white">Saxophone</a></p>
+                        <p><a href="#" class="text-white">Voice Instrument</a></p>
+                    </div>
+                </div>
+
+                <div class="col-4 text-white">
+                    <h3 class="address text"><strong>CRYPTO GURU</strong></h3>
+                    <div class="facet; width=100">
+                        We help you achieve your Crypto Dream, letting we the help of our teachers, you get advance in knowledge in crypto trading.
+                        <img class="w-50 h-50" src="~/images/Coin.jpg_prev_ui.png" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row color-red">
+                <div class="col-4 text-justify">
+                    <h4 class="text-white"><strong>CONTACT</strong></h4>
+                    <p class="text-white">
+                        +234-803-611-4237, +222-312-212-21
+                    </p>
+                </div>
+
+                <div class="col-4 text-white text-center">
+                    <br>
+                    megamedia12@gmail.com
+                    <br>
+                    &copy; 2022 - Mega_Music_School - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                </div>
+
+                <div class="col-4">
+                    <h4 class="text-white text-center"><strong>Follow us on Social Media</strong></h4>
+                    <div class="text-center">
+                        <img src="~/image/icon-facebook.svg">
+                        <img src="~/image/icon-youtube.svg">
+                        <img src="~/image/icon-twitter.svg">
+                        <img src="~/image/icon-pinterest.svg">
+                        <img src="~/image/icon-instagram.svg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="~/js/Script.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Mega_Music_School.Models.Video>
+@{
+    ViewData["Title"] = "GETTHE FULL GIST";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <img src="~/images/Beauty.png" class="w-100 h-25" width="100" />        <br />
+    <div class="row">
+        <div class="col-md-8">
+            <div class="container">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title text-center text-danger">GET ENTERTAINED BY VIEWING OUR CONTENTS</h3>
+                        @if (Model != null && Model.Count() != 0)
+                        {
+                            @foreach (var Upload in Model)
+                            {
+                                var embeded = Upload.VideoLink.Replace("/watch?v=", "/embed/");
+                                <div class="card">
+                                    <div class="card-body">
+                                        <iframe src="@embeded" height="380" width="850" title="@Upload.VideoName" frameborder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture" allowfullscreen>
+                                        </iframe>
+
+                                        <h3 class="card-title">@Upload.VideoName</h3>
+                                        <h5 class="card-title">@Upload.VideoDetails</h5>
+                                        <h5 class="card-title">@Upload.DateAdded</h5>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <p>
+                                <b>
+                                    No video approved for now.
+                                </b>
+                            </p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="container">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title text-center text-danger">CHECK OUT OUR SONGS</h3>
+                        @if (Model != null && Model.Count() != 0)
+                        {
+                            @foreach (var Upload in Model)
+                            {
+                                <div class="card">
+                                    <div class="card-body">
+                                        <p><strong>Click to play:</strong></p>
+                                        <audio controls muted>
+                                            <source src="@Upload.Mp3Upload" type="audio/mpeg">
+                                        </audio>
+
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <p>
+                                <b>
+                                    No songs approved for now.
+                                </b>
+                            </p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,72 @@
+﻿@model Mega_Music_School.Models.UserAndAdminProfile
+@{
+    ViewData["Title"] = "State";
+    Layout = "~/Views/Shared/_StudentDashboardLayout.cshtml";
+}
+
+
+
+<section class="section">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-center">UPDATE PROFILE</h5>
+
+
+
+                    @if (Model != null)
+                    {
+                        if (Model.ErrorHappened)
+                        {
+                            <div class="alert alert-danger alert-dismissible">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>Message:</strong> <b> @Model.Message   </b>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="alert alert-success alert-dismissible">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>Message:</strong> <b>  @Model.Message  </b>
+                            </div>
+                        }
+                    }
+
+
+
+                    <form asp-controller="Student" method="post" enctype="multipart/form-data" class="row g-3">
+                        <div class="col-12">
+                            <label asp-for="Address" class="form-label">Address</label>
+                            <input asp-for="Address" class="form-control" placeholder="Address">
+                        </div>
+
+                        <div class="col-12">
+                            <label asp-for="DateOfBirth" class="form-label">Date Of Birth</label>
+                            <input asp-for="DateOfBirth" type="date" class="form-control" placeholder="D.O.B">
+                        </div>
+
+                        <div class="col-12">
+                            <label asp-for="JoiningDate" class="form-label">Joining Date</label>
+                            <input asp-for="JoiningDate" type="date" class="form-control" placeholder="Joined">
+                        </div>
+
+                        <div class="col-12">
+                            <label for="H.Q" class="form-label" asp-for="AcademicQualification">Highest Academic Qualification</label>
+                            <input asp-for="AcademicQualification" type="text" class="form-control" placeholder="Academic Level">
+                        </div>
+
+                        <div class="col-12">
+                            <label asp-for="ProfilePicturePngJpg" class="form-label">Profile Picture</label>
+                            <input asp-for="ProfilePicturePngJpg" type="file" class="form-control" placeholder="Attach Profile">
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Save Profile</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

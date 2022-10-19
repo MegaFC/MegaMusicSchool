@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Mega_Music_School.Models.Course>
+@{
+    ViewData["Title"] = "Explore Our Learning Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <h4>BE GOOD IN MUSICKING</h4>
+                <h1 class="text-danger">The Ultimate Checklist for New Music Teachers</h1>
+                <hr />
+                <div class="container-fluid"><img src="~/image/drum.png" class="w-100 h-25" width="100" /></div>
+                <br />
+                <h3 class="text-primary text-center"><b>FULLY STACKED COURSES</b></h3>
+
+                <section class="section">
+                    @if (Model != null && Model.Count() > 0)
+                    {
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr class="text-center">
+                                    <th scope="col">Course Name</th>
+                                    <th scope="col">Course Title</th>
+                                    <th scope="col">Course Department</th>
+                                    <th scope="col">Course Image</th>
+                                    <th scope="col">Course Handout</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var learn in Model)
+                                {
+                                    <tr class="text-center">
+                                        <td width="20%">@learn.CourseName</td>
+                                        <td width="20%">@learn.CourseTitle</td>
+                                        <td width="20%">@learn.Department?.Name</td>
+                                        <td width="20%"><img src="@learn.CourseImageURL" style="width: 50px; height: 50px" /></td>
+                                        <td width="20%">
+                                            <a class="btn btn-block" href="@learn.CourseHandbookURL" download>
+                                                <i class="fa fa-download" style="font-size: 25px; color: yellow;" aria-hidden="true"></i>
+                                                <br /><b>DOWNLOAD</b>
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <h2 class="text-secondary text-center py-5">NO TEXT FOR DOWNLOAD</h2>
+                    }
+                </section>
+
+
+            </div>
+        </div>
+    </div>
+</section>

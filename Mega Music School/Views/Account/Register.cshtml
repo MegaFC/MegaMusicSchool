@@ -1,0 +1,166 @@
+﻿@model Mega_Music_School.Models.UserAndAdminProfile
+@{
+    ViewData["Title"] = "AdminRegister";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <script src="~/img/js/jquery-3.6.0.min.js"></script>
+    <script src="~/img/js/jquery.min.js"></script>
+    <script src="~/img/js/popper.min.js"></script>
+}
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="text-center"><span class="text-primary text-decoration-underline"><strong>SIGN UP HERE</strong></span></h2>
+            @if (Model != null)
+            {
+                if (Model.ErrorHappened)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>Message:</strong> <b> @Model.Message   </b>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-success alert-dismissible">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>Message:</strong> <b>  @Model.Message  </b>
+                    </div>
+                }
+
+
+            }
+
+            <form asp-action="Register" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label asp-for="FirstName">First Name</label>
+                        <input asp-for="FirstName" class="form-control" type="text" Placeholder="Enter First Name" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="LastName">Last Name</label>
+                        <input asp-for="LastName" class="form-control" type="text" Placeholder="Enter Last Name" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label asp-for="NormalizedUserName">Username</label>
+                        <input asp-for="NormalizedUserName" class="form-control" type="text" Placeholder="Enter First Name" />
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Email">Email</label>
+                        <input asp-for="Email" class="form-control" type="Email" Placeholder="Enter Email" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label asp-for="Password">Password</label>
+                        <input asp-for="Password" class="form-control" type="password" Placeholder="Enter Password" />
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="ConfirmPassword">Confirm Password</label>
+                        <input asp-for="ConfirmPassword" class="form-control" type="password" Placeholder="Enter" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label asp-for="DepartmentId">Department</label>
+                        <select asp-for="DepartmentId" class="form-control" asp-items="@(new SelectList(@ViewBag.allDepartment, "Id", "Name"))"> </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="PhoneNumber">Phone</label>
+                        <input asp-for="PhoneNumber" class="form-control" type="text" Placeholder="Phone" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label asp-for="CountryId" class="form-label">Nationality</label>
+                        <select asp-for="CountryId" id="countryId" class="form-control" asp-items="@(new SelectList(@ViewBag.allCountry, "Id", "Name", "Active"))"> </select>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <label asp-for="StateId" class="form-label">State</label>
+                        <select asp-for="StateId" id="StateId" class="form-control"> </select>
+                    </div>                    
+                </div>
+
+                <div class="col-12">
+                    <label asp-for="LGAId" class="form-label">Local Government</label>
+                    <select asp-for="LGAId" id="LocalGovtId" class="form-control"> </select>
+                </div>
+
+                <br />
+                <div class="text-center">
+                    <button asp-action="Register" class="btn btn-badge-pill bg-primary text-white">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+
+    $(document).ready(function () {
+        $("#countryId").change(function () {
+            debugger;
+            $("#StateId").empty();
+            var id = $("#countryId").val();
+            $.ajax({
+                type: 'GET',
+                url: '/Account/GetStateInCountry', //we are calling json method
+                dataType: 'json',
+                data: { countryId: id },
+                success: function (getStates) {
+                    debugger;
+                    //$.each(getStates.data, function (i, state) {
+                    //    $("#StateId").append('<option value="' + state.id + '">' + state.name + '</option>');
+                    //});
+                    $("#StateId").append('<option value="' + 0 + '">--Select State --</option>');
+                    $.each(getStates, function (i, getState) {
+                        $("#StateId").append('<option value="' + getState.value + '">' + getState.text + '</option>');
+                    });
+                    $("#StateId").show();
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve State.' + ex);
+                }
+            });
+        });
+    });
+
+
+    $(document).ready(function () {
+        $("#StateId").change(function () {
+            debugger;
+            $("#LocalGovtId").empty();
+            var id = $("#StateId").val();
+            $.ajax({
+                type: 'GET',
+                url: '/Account/GetLGAInState', //we are calling json method
+                dataType: 'json',
+                data: { StateId: id },
+                success: function (getLocalGovt) {
+                    debugger;
+                    $("#LocalGovtId").append('<option value="' + 0 + '">--Select LocalGovt --</option>');
+                    $.each(getLocalGovt, function (i, getLocalGovt) {
+                        $("#LocalGovtId").append('<option value="' + getLocalGovt.value + '">' + getLocalGovt.text + '</option>');
+                    });
+                    $("#LocalGovtId").show();
+                    //$.each(getLocalGovt.data, function (i, localGovt) {
+                    //    $("#LocalGovtId").append('<option value="' + localGovt.id + '">' + localGovt.name + '</option>');
+                    //});
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve LocalGovt.' + ex);
+                }
+            });
+        });
+    });
+</script>

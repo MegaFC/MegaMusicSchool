@@ -1,0 +1,58 @@
+﻿@model Mega_Music_School.Models.Video
+@{
+    ViewData["Title"] = "UploadVideo";
+    Layout = "~/Views/Shared/_StudentDashboardLayout.cshtml";
+}
+
+<div class="container">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="text-bg-primary text-center"><strong>FILL TO UPLOAD VIEW</strong></h3>
+                <br />
+
+                @if (Model != null)
+                {
+                    if (Model.ErrorHappened)
+                    {
+                        <div class="alert alert-danger alert-dismissible">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>Message:</strong> <b> @Model.Message   </b>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-success alert-dismissible">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>Message:</strong> <b>  @Model.Message  </b>
+                        </div>
+                    }
+
+
+                }
+                <form asp-controller="Student" asp-action="ViewUpload" method="post" enctype="multipart/form-data" class="row g-3">
+                    <div class="col-12">
+                        <label for="H.Q" class="form-label">Video Name:</label>
+                        <input asp-for="VideoName" as type="text" class="form-control" placeholder="Video Name">
+                    </div>
+                    <div class="col-12">
+                        <label for="H.Q" class="form-label">Video Link:</label>
+                        <input asp-for="VideoLink" type="text" class="form-control" placeholder="Video Link">
+                    </div>
+                    <div class="col-12">
+                        <label for="myfile">Select Mp3 file:</label>
+                        <input asp-for="Mp3RawFile" type="file" class="form-control"><br><br>
+                    </div>
+                    <div class="form-group">
+                        <textarea asp-for="VideoDetails" class="form-control" placeholder="make a comment on your link" rows="5" id="comment"></textarea>
+                    </div><br />
+                    <div class="text-center">
+                        <button asp-action="UploadVideo" class="text-center btn btn-primary" type="submit">Submit</button>
+                    </div>
+                </form>
+                <br />
+                <h4><a asp-action="AllUploadedItems" asp-controller="Student">See Contents You Uploaded</a></h4>
+            </div>
+        </div>
+    </div>
+</div>

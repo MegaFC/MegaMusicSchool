@@ -1,0 +1,51 @@
+﻿@model Mega_Music_School.Models.State
+@{
+    ViewData["Title"] = "State";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<!-- General Form Elements -->
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title text-center">ADD STATE</h5>
+
+
+        @if (Model != null)
+        {
+            if (Model.ErrorHappened)
+            {
+                <div class="alert alert-danger alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Message:</strong> <b> @Model.Message   </b>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-success alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Message:</strong> <b>  @Model.Message  </b>
+                </div>
+            }
+
+
+        }
+
+        <form method="post" asp-controller="Admin" class="row g-3">
+            <div class="row mb-3">
+                <div class="col-8">
+                    <label asp-for="Nationality" class="form-label">Country</label>
+                    <select asp-for="NationalityId" id="countryId" class="form-control" asp-items="@(new SelectList(@ViewBag.allCountry, "Id", "Name", "Active"))"> </select>
+                </div>
+                <br />
+                <div class="col-8">
+                    <label asp-for="Name" class="form-label">Add State</label>
+                    <input asp-for="Name" class="form-control" type="text" Placeholder="Enter" />
+                </div>
+                <br />
+                <div class="col-8 text-center">
+                    <button type="submit" class="btn btn-primary">Submit Form</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>         

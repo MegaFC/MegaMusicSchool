@@ -1,0 +1,26 @@
+﻿@model Mega_Music_School.Models.State
+@{
+    ViewData["Title"] = "State";
+    Layout = "~/Views/Shared/_StudentDashboardLayout.cshtml";
+}
+
+<!-- General Form Elements -->
+<form class="row">
+    <div class="col-md-12">
+        <div class="form-floating">
+            <div class="col-md-4">
+                <label for="floatingName">ADD STATE</label>
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="floatingSelect" aria-label="State">
+                        <option selected>states</option>
+                        <option value="1"></option>
+                        <option value="2"></option>
+                        <option value="3"></option>
+                    </select>
+                    <br> <br>
+                    <button asp-action="" type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

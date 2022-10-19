@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Mega_Music_School.Models.Course>
+@{
+    ViewData["Title"] = "Choose Course";
+    Layout = "~/Views/Shared/_StudentDashboardLayout.cshtml";
+}
+
+
+<div class="container">
+    <section class="section">
+        <div class="row">
+            @if (Model != null && Model.Count() > 0)
+            {
+                @foreach (var CourseChoose in Model)
+                {
+                    <div class="col-md-6">
+                        <div class="card" style="width:400px">
+                            <div class="card-body">
+                                <img src="@CourseChoose.CourseImageURL" style="width: 350px; height: 270px" />
+                                <h2 class="card-title">Course Name: @CourseChoose.CourseName</h2>
+                                <p>Course Title: @CourseChoose.CourseTitle</p>
+                                <p>Department: @CourseChoose.Department.Name</p>
+                                <a onclick="Achieve('@CourseChoose.Id')" class="btn btn-badge-pill bg-primary">Add To Table</a>
+                                @*<i type="button" class="btn btn-badge-pill bg-primary"></i>*@
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </section>
+</div>
+
+
+<h4 class="text-center"><a asp-action="StudentAddedCourses" asp-controller="Student">Courses Added</a></h4>

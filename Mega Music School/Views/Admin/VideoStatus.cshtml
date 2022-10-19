@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Mega_Music_School.Models.Video>
+@{
+    ViewData["Title"] = "VideoReview";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<!-- General Form Elements -->
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title text-center">UPLOAD CONTENTS</h5>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr class="text-center">
+
+                    <th scope="col">Video Name</th>
+                    <th scope="col">Video Link</th>
+                    <th scope="col">Video Details</th>
+                    <th scope="col">Date Added</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var video in Model)
+                {
+                    <tr>
+                        <td width="20%">@video.VideoName</td>
+                        <td width="20%">@video.VideoLink</td>
+                        <td width="20%">@video.VideoDetails</td>
+                        <td width="20%">@video.DateAdded</td>
+                        <td width="10%">@video.VideoStatus</td>
+                        <td width="30%">
+                            <a onclick="AcceptVideoPost('@video.Id')"><i class="fa fa-check-circle-o" style="font-size: 25px; color: green;" aria-hidden="true"></i></a>
+                            <a onclick="RejectVideoPost('@video.Id')"><i class="fa fa-close" style="font-size: 25px; color:red;" aria-hidden="true"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

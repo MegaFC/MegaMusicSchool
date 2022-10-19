@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Mega_Music_School.Models.LGA>
+@{
+    ViewData["Title"] = "ListOfAddedItems";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+<section class="section">
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-center">LGA</h5>
+
+                    <table class="table datatable">
+                        <thead>
+                            <tr>
+                                <th scope="col">LGA Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var lga in Model)
+                            {
+                                <tr>
+                                    <td width="30%">@lga.Name</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

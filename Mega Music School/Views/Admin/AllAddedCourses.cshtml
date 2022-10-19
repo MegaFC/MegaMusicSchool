@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Mega_Music_School.Models.Course>
+@{
+    ViewData["Title"] = "CourseAdded";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+
+<div class="container">
+    <h3>List of Courses Added</h3>
+    <div class="card">
+        <div class="card-body">
+            <section class="section">
+                @if (Model != null && Model.Count() > 0)
+                {
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr class="text-center">
+                                <th scope="col">Course Name</th>
+                                <th scope="col">Course Title</th>
+                                <th scope="col">Course Department</th>
+                                <th scope="col">Course Image</th>
+                                <th scope="col">Remove Course</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var addCourse in Model)
+                            {
+                                <tr class="text-center">
+                                    <td width="20%">@addCourse.CourseName</td>
+                                    <td width="20%">@addCourse.CourseTitle</td>
+                                    <td width="20%">@addCourse.Department?.Name</td>
+                                    <td width="20%"><img src="@addCourse.CourseImageURL" style="width: 50px; height: 50px" /></td>
+                                    <td width="20%">
+                                        <a onclick="EludeCourse('@addCourse.Id')">
+                                            <i class="fa fa-close" style="font-size: 25px; color: red;" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <h2 class="text-secondary text-center py-5">NO Course So No Need For Action</h2>
+                }
+            </section>
+        </div>
+    </div>
+</div>

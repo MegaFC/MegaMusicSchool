@@ -1,0 +1,98 @@
+﻿@model Mega_Music_School.Models.LGA
+@{
+    ViewData["Title"] = "LgaCreate";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    <script src="~/img/js/jquery-3.6.0.min.js"></script>
+    <script src="~/img/js/jquery.min.js"></script>
+    <script src="~/img/js/popper.min.js"></script>
+}
+
+
+<!-- General Form Elements -->
+
+<section class="section">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-center">ADD COUNTRY</h5>
+
+
+                    @if (Model != null)
+                    {
+                        if (Model.ErrorHappened)
+                        {
+                            <div class="alert alert-danger alert-dismissible">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>Message:</strong> <b> @Model.Message   </b>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="alert alert-success alert-dismissible">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>Message:</strong> <b>  @Model.Message  </b>
+                            </div>
+                        }
+
+
+                    }
+
+
+                <form method="post" asp-controller="Admin" class="row g-3">
+                    <div class="col-6">
+                        <label asp-for="CountryId" class="form-label">Nationality</label>
+                        <select asp-for="CountryId" id="countryId" class="form-control" asp-items="@(new SelectList(@ViewBag.allCountry, "Id", "Name", "Active"))"> </select>
+                    </div>
+
+                    <div class="col-6">
+                        <label asp-for="StateId" class="form-label">State</label>
+                        <select asp-for="StateId" id="StateId" class="form-control"> </select>
+                    </div>
+
+                    <div class="col-6">
+                        <label asp-for="Name" class="form-label">Add Lga Government</label>
+                        <input asp-for="Name" id="LocalGovtId" class="form-control"> </input>
+                    </div>
+
+
+                    <br />
+                    <div class="col-sm-10 text-center">
+                        <button type="submit" class="btn btn-primary ">Submit Form</button>
+                    </div>
+                </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+<script>
+    $(document).ready(function () {
+        $("#countryId").change(function () {
+            debugger;
+            $("#StateId").empty();
+            var id = $("#countryId").val();
+            $.ajax({
+                type: 'GET',
+                url: '/Account/GetStateInCountry', //we are calling json method
+                dataType: 'json',
+                data: { countryId: id },
+                success: function (getStates) {
+                    debugger;
+                    //$.each(getStates.data, function (i, state) {
+                    //    $("#StateId").append('<option value="' + state.id + '">' + state.name + '</option>');
+                    //});
+                    $("#StateId").append('<option value="' + 0 + '">--Select State --</option>');
+                    $.each(getStates, function (i, getState) {
+                        $("#StateId").append('<option value="' + getState.value + '">' + getState.text + '</option>');
+                    });
+                    $("#StateId").show();
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve State.' + ex);
+                }
+            });
+        });
+    });
+</script>

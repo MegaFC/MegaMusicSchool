@@ -1,0 +1,53 @@
+﻿@model Mega_Music_School.Models.UserAndAdminProfile
+@{
+    ViewData["Title"] = "LogIn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container align-content-center">
+    <div class="card ">
+        <div class="card-body">
+            <h3 class="text-secondary text-center"><b>LOG IN HERE</b></h3>
+
+            @if (Model != null)
+            {
+                if (Model.ErrorHappened)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>Message:</strong> <b> @Model.Message   </b>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-success alert-dismissible">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>Message:</strong> <b>  @Model.Message  </b>
+                    </div>
+                }
+            }
+            
+            <form asp-action="Login" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label asp-for="Email">Email</label>
+                        <input asp-for="Email" class="form-control" type="Email" Placeholder="Enter Email" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <br /><br />
+
+                    <div class="col-md-12">
+                        <label asp-for="Password">Password</label>
+                        <input asp-for="Password" class="form-control" type="password" Placeholder="Enter Password" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                </div>
+                <br />
+                <div class="text-center">
+                    <button asp-action="Login" asp-controller="Account" class="btn btn-badge-pill bg-primary text-white">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
