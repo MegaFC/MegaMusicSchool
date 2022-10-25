@@ -3,21 +3,21 @@
     ViewData["Title"] = "AllUploads";
     Layout = "~/Views/Shared/_StudentDashboardLayout.cshtml";
 }
-
-
 <div class="container">
     <div class="card">
         <div class="card-body">
             <section class="section">
-                <h3 class="text-bg-primary text-center"><strong>LIST OF UPLOADED CONTENTS</strong></h3>
 
                 @if (Model != null && Model.Count() > 0)
                 {
+                    <h3 class="text-bg-primary text-center"><strong>LIST OF UPLOADED CONTENTS</strong></h3>
                     <table table class="table table-bordered">
                         <thead>
                             <tr class="text-center">
                                 <th scope="col"> Video Name</th>
                                 <th scope="col"> Video Link</th>
+                                <th scope="col"> Song Title</th>
+                                <th scope="col"> MP3 FILE</th>
                                 <th scope="col"> Video Details</th>
                                 <th scope="col"> Date Added</th>
                                 <th scope="col">Action</th>
@@ -30,6 +30,8 @@
                                     <td width="20%"> @Videoupload.VideoName </td>
                                     <td width="20%"> @Videoupload.VideoLink </td>
                                     <td width="20%"> @Videoupload.VideoDetails </td>
+                                    <td width="20%"> @Videoupload.SongTitle </td>
+                                    <td width="20%"> @Videoupload.Mp3Upload </td>
                                     <td width="20%"> @Videoupload.DateAdded </td>
                                     <td width="20%">
                                         <a onclick="DeleteItem('@Videoupload.Id')">
@@ -37,7 +39,6 @@
                                         </a>
                                     </td>
                                 </tr>
-                                <br />
                             }
                         </tbody>
                     </table>

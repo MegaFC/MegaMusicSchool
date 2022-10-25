@@ -86,7 +86,7 @@ namespace Mega_Music_School.Controllers
 
                 if (UserAndAdminProfileDetailsForReg.Password != UserAndAdminProfileDetailsForReg.ConfirmPassword)
                 {
-                    UserAndAdminProfileDetailsForReg.Message = "Enter Similar Password Keys.";
+                    UserAndAdminProfileDetailsForReg.Message = "Mismatched Password Enter Correct Password.";
                     UserAndAdminProfileDetailsForReg.ErrorHappened = true;
                     return View(UserAndAdminProfileDetailsForReg);
                 }
@@ -121,10 +121,8 @@ namespace Mega_Music_School.Controllers
                     newInstanceOfUserAndAdminProfileModelAboutToBCreated.LastName = UserAndAdminProfileDetailsForReg.LastName;
                     newInstanceOfUserAndAdminProfileModelAboutToBCreated.Email = UserAndAdminProfileDetailsForReg.Email;
                     newInstanceOfUserAndAdminProfileModelAboutToBCreated.PhoneNumber = UserAndAdminProfileDetailsForReg.PhoneNumber;
-
                     newInstanceOfUserAndAdminProfileModelAboutToBCreated.Password = UserAndAdminProfileDetailsForReg.Password;
-
-                    newInstanceOfUserAndAdminProfileModelAboutToBCreated.UserName = UserAndAdminProfileDetailsForReg.Email;
+                    newInstanceOfUserAndAdminProfileModelAboutToBCreated.UserName = UserAndAdminProfileDetailsForReg.UserName;
                     newInstanceOfUserAndAdminProfileModelAboutToBCreated.CountryId = UserAndAdminProfileDetailsForReg.CountryId;
                     newInstanceOfUserAndAdminProfileModelAboutToBCreated.StateId = UserAndAdminProfileDetailsForReg.StateId;
                     newInstanceOfUserAndAdminProfileModelAboutToBCreated.LGAId = UserAndAdminProfileDetailsForReg.LGAId;
@@ -140,11 +138,12 @@ namespace Mega_Music_School.Controllers
                 {
                     //To create a student portion
                    var addToRole = await _userManager.AddToRoleAsync(newInstanceOfUserAndAdminProfileModelAboutToBCreated, "Admin");
+                    await _signInManager.SignInAsync(newInstanceOfUserAndAdminProfileModelAboutToBCreated, isPersistent: true);
 
 
                     UserAndAdminProfileDetailsForReg.Message = "User Created Succesfully.";
                     UserAndAdminProfileDetailsForReg.ErrorHappened = false;
-                    return RedirectToAction("Login", "Account");
+                    return RedirectToAction("Index", "Admin"); // change for admin & user
                 }
                 else
                 {
@@ -194,7 +193,7 @@ namespace Mega_Music_School.Controllers
 
                 if (UserAndAdminProfileDetailsForReg.Password != UserAndAdminProfileDetailsForReg.ConfirmPassword)
                 {
-                    UserAndAdminProfileDetailsForReg.Message = "Enter Similar Password Keys.";
+                    UserAndAdminProfileDetailsForReg.Message = "Mismatched Password Enter Correct Password.";
                     UserAndAdminProfileDetailsForReg.ErrorHappened = true;
                     return View(UserAndAdminProfileDetailsForReg);
                 }
@@ -231,7 +230,7 @@ namespace Mega_Music_School.Controllers
                     newInstanceOfUserAndAdminProfileModelAboutToBCreated.Email = UserAndAdminProfileDetailsForReg.Email;
                     newInstanceOfUserAndAdminProfileModelAboutToBCreated.PhoneNumber = UserAndAdminProfileDetailsForReg.PhoneNumber;
                     newInstanceOfUserAndAdminProfileModelAboutToBCreated.DepartmentId = UserAndAdminProfileDetailsForReg.DepartmentId;
-                    newInstanceOfUserAndAdminProfileModelAboutToBCreated.UserName = UserAndAdminProfileDetailsForReg.Email;
+                    newInstanceOfUserAndAdminProfileModelAboutToBCreated.UserName = UserAndAdminProfileDetailsForReg.UserName;
                     newInstanceOfUserAndAdminProfileModelAboutToBCreated.CountryId = UserAndAdminProfileDetailsForReg.CountryId;
                     newInstanceOfUserAndAdminProfileModelAboutToBCreated.StateId = UserAndAdminProfileDetailsForReg.StateId;
                     newInstanceOfUserAndAdminProfileModelAboutToBCreated.LGAId = UserAndAdminProfileDetailsForReg.LGAId;
@@ -239,8 +238,6 @@ namespace Mega_Music_School.Controllers
                     newInstanceOfUserAndAdminProfileModelAboutToBCreated.Address = UserAndAdminProfileDetailsForReg.Address;
                     newInstanceOfUserAndAdminProfileModelAboutToBCreated.AcademicQualification = UserAndAdminProfileDetailsForReg.AcademicQualification;
                     newInstanceOfUserAndAdminProfileModelAboutToBCreated.DateOfBirth = UserAndAdminProfileDetailsForReg.DateOfBirth;
-                    ////newInstanceOfUserAndAdminProfileModelAboutToBCreated.AcademicQualification = UserAndAdminProfileDetailsForReg.AcademicQualification;
-
                 };
 
 
@@ -249,11 +246,11 @@ namespace Mega_Music_School.Controllers
                 {
                     //To create a student portion
                     var addToRole = await _userManager.AddToRoleAsync(newInstanceOfUserAndAdminProfileModelAboutToBCreated, "Student");
-
+                    await _signInManager.SignInAsync(newInstanceOfUserAndAdminProfileModelAboutToBCreated, isPersistent: true);
 
                     UserAndAdminProfileDetailsForReg.Message = "User Created Succesfully.";
                     UserAndAdminProfileDetailsForReg.ErrorHappened = false;
-                    return RedirectToAction("Login", "Account");
+                    return RedirectToAction("Index", "Student");
                 }
                 else
                 {
@@ -302,18 +299,26 @@ namespace Mega_Music_School.Controllers
                 //  Validating User Details For Login stops here
 
                 // Query  4  the user with email detail if it exists in thr Db B4 Authentication
-                var queryUserAndAdminProfileTableWithEmail = await _userManager.FindByEmailAsync(UserAndAdminProfileDetailsForLogin.Email);
+                var queryUserAndAdminProfileTableWithEmail = _userManager.FindByEmailAsync(UserAndAdminProfileDetailsForLogin.Email).Result;
                 if (queryUserAndAdminProfileTableWithEmail == null)
                 {
                     UserAndAdminProfileDetailsForLogin.Message = "Your details was not found in our database, please register.";
                     UserAndAdminProfileDetailsForLogin.ErrorHappened = true;
                     return View(UserAndAdminProfileDetailsForLogin);
                 }
+
+                if (queryUserAndAdminProfileTableWithEmail.Expelled == true)
+                {
+                    UserAndAdminProfileDetailsForLogin.Message = "Senior man I don expel u get out of here.";
+                    UserAndAdminProfileDetailsForLogin.ErrorHappened = true;
+                    return View(UserAndAdminProfileDetailsForLogin);
+                }
+
                 // End of Query  4  the user details if it exists in thr Db B4 Authentication
 
 
                 // We are using Ef Core IDDB SignIn Method with the params it needed to sign the user In & if it Succeeded it goes to the Dashboard
-                var result = _signInManager.PasswordSignInAsync(UserAndAdminProfileDetailsForLogin.Email, UserAndAdminProfileDetailsForLogin.Password, true, false).Result;
+                var result = await _signInManager.PasswordSignInAsync(queryUserAndAdminProfileTableWithEmail, UserAndAdminProfileDetailsForLogin.Password, true, false);
                 if (result.Succeeded)
                 {
                     //To create a definite portion
@@ -343,7 +348,7 @@ namespace Mega_Music_School.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         [HttpGet]

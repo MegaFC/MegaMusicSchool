@@ -26,6 +26,11 @@ namespace Mega_Music_School.Models
         [DisplayName("Video Details")]
         public string VideoDetails { get; set; }
 
+        [DisplayName("Song Title")]
+        public string SongTitle { get; set; }
+
+        [DisplayName("Song Details")]
+        public string SongDetails { get; set; }
 
         [DisplayName("Mp3 Upload URL File Path")]
         public string Mp3Upload { get; set; }

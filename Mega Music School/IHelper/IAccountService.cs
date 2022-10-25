@@ -35,10 +35,10 @@ namespace Mega_Music_School.IHelper
         List<Video> StudentActionOnTheirUploads();
 
         //POPULATE THE LIST OF STUDENT IN THE SCHEME
-        List<UserAndAdminProfile> PopulateListOfStudentInTheScheme();
-        
+        Task<List<UserAndAdminProfile>> PopulateListOfStudentInTheScheme();
         //STUDENT ADD COURSES
         List<Course>StudentsAddCourses();
+
 
         //STUDENT COURSES ADDED
         List<StudentCourse> PopulateMyCoursesList();

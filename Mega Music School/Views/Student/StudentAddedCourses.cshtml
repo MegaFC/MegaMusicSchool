@@ -5,10 +5,10 @@
 }
 <div class="card">
     <div class="card-body">
-        <h3 class="text-center text-primary"><strong>COURSES YOU REGISTER</strong></h3>
         <section class="section">
             @if (Model != null && Model.Count() > 0)
             {
+                <h3 class="text-center text-primary"><strong>COURSES YOU REGISTER</strong></h3>
                 <table table class="table table-bordered">
                     <thead>
                         <tr class="text-center">
@@ -19,9 +19,9 @@
                         @foreach (var chosen in Model)
                         {
                             <tr class="text-center">
-                                <td width="20%"> @chosen.Course.Name</td>
+                                <td width="20%"> @chosen.Course.CourseName</td>
                             </tr>
-                         }
+                        }
                     </tbody>
                 </table>
             }
@@ -32,4 +32,4 @@
         </section>
     </div>
 </div>
-<h3>Click Here To Print</h3>
+<button onclick="window.print()">Click Here To Print</button>

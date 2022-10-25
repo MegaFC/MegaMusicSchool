@@ -37,142 +37,14 @@
     ======================================================== -->
 
     <script>
-        function errorAlert(message) {
-            Swal.fire({
-                icon: 'error',
-                text: message,
-                confirmButtonColor: "#00A7EF",
-                timer: 30000,
-            })
-        }
-
-        function infoAlert(message) {
-            Swal.fire({
-                icon: 'info',
-                text: message,
-                confirmButtonColor: "#00A7EF",
-            })
-        }
-
-        function infoAlertWithStyles(message) {
-            Swal.fire({
-                title: 'Notification',
-                icon: 'info',
-                text: message,
-            })
-        }
-
-        function successAlert(message) {
+        function successAlert(message, url) {
             Swal.fire({
                 icon: 'success',
                 text: message,
-                confirmButtonColor: "#00A7EF",
-                timer: 30000,
-            })
-        }
-
-        function newErrorAlert(message, url) {
-            Swal.fire({
-                icon: 'error',
-                text: message,
-                confirmButtonColor: "#00A7EF",
-            }).then((isConfirm) => {
-                if (isConfirm) {
-                    location.reload(url);
-                }
-            })
-        }
-
-        function errorAlertWithRedirect(message, url) {
-            Swal.fire({
-                title: "Error",
-                text: message,
-                icon: "error",
-                timer: 30000,
-                confirmButtonColor: "#00A7EF",
-                overlay: "background - color: rgba(43, 165, 137, 0.45)",
+                confirmButtonColor: "#00A7EF"
             }).then(function () {
-
                 location.href = url;
             })
-        }
-
-        function newSuccessAlert(message, url) {
-            Swal({
-                icon: 'success',
-                text: message,
-                confirmButtonColor: "#00A7EF",
-            }).then((isConfirm) => {
-                if (isConfirm) {
-                    location.reload(url);
-                }
-            })
-        }
-
-        function successAlertWithRedirect(message, url) {
-            Swal.fire({
-                title: "Success",
-                text: message,
-                icon: "success",
-                timer: 30000,
-                confirmButtonColor: "#00A7EF",
-                overlay: "background - color: rgba(43, 165, 137, 0.45)",
-            }).then(function () {
-
-                location.href = url;
-            })
-        }
-
-        function errorAlertwithTwoButtons(yesUrl, noUrl, newUrl, errorTitle) {
-            Swal.fire({
-                title: errorTitle,
-                text: "",
-                icon: "error",
-                buttons: {
-                    cancle: "No",
-                    confirmButtonColor: "#00A7EF",
-                    change: "Yes",
-                    new: "Create Pin",
-                },
-            })
-                .then((status) => {
-                    debugger;
-                    switch (status) {
-                        case "change":
-                            location.href = yesUrl;
-                            break;
-                        case "new":
-                            location.href = newUrl;
-                            break;
-                        default:
-                            location.href = noUrl;
-                    }
-                });
-        }
-
-        function SweeTest(yesUrl, noUrl) {
-            Swal.fire({
-                title: "Unverified E-mail Address",
-                text: "Check your inbox Or Change email",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#00A7EF",
-                confirmButtonText: "Resend Email",
-                cancelButtonText: "Change Email",
-                cancelButtonColor: "#D3AF71",
-                closeOnConfirm: false,
-                closeOnCancel: false
-            })
-                .then((result) => {
-                    debugger
-                    if (result.isConfirmed) {
-                        location.href = yesUrl
-                    }
-                    else {
-                        location.href = noUrl
-                    }
-
-                });
         }
     </script>
 </head>
@@ -419,14 +291,14 @@
 
             <li class="nav-item">
                 <a class="nav-link collapsed" asp-controller="Student" asp-action="Contact">
-                    <i class="bi bi-envelope"></i>
+                    <i class="fa-solid fa-address-book"></i>
                     <span>Contact</span>
                 </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link collapsed" asp-action="Logout" asp-controller="Account">
-                    <i class="bi bi-envelope"></i>
+                    <i class="fa fa-sign-out" aria-hidden="true"></i>
                     <span>Log-Out</span>
                 </a>
             </li>

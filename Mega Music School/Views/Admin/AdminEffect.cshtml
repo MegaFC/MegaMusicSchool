@@ -29,6 +29,7 @@
                             @foreach (var removeStudent in Model)
 
                             {
+                              
                                 <tr class="text-center">
                                     <td width="20%">@removeStudent.FirstName</td>
                                     <td width="20%">@removeStudent.LastName</td>
@@ -37,9 +38,9 @@
                                     <td width="20%">@removeStudent.Country.Name</td>
                                     <td width="20%">@removeStudent.State.Name</td>
                                     <td width="20%">@removeStudent.LocalGovernmentArea.Name</td>
-                                    <td width="35%">
+                                    <td width="40%">
                                         <a onclick="Expell('@removeStudent.Id')">
-                                            <i class="btn btn-danger" placeholder="Expel" style="font-size: 35px; color: red;" aria-hidden="true"></i>
+                                            <i class="fa fa-remove" style="font-size: 25px; color: red;" aria-hidden="true"></i>
                                         </a>
                                     </td>
                                 </tr>
