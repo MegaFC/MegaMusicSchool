@@ -309,7 +309,7 @@ namespace Mega_Music_School.Controllers
 
                 if (queryUserAndAdminProfileTableWithEmail.Expelled == true)
                 {
-                    UserAndAdminProfileDetailsForLogin.Message = "Senior man I don expel u get out of here.";
+                    UserAndAdminProfileDetailsForLogin.Message = "Senior Man You Are Already Expelled!";
                     UserAndAdminProfileDetailsForLogin.ErrorHappened = true;
                     return View(UserAndAdminProfileDetailsForLogin);
                 }
