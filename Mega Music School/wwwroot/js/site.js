@@ -12,8 +12,8 @@ function AcceptVideoPost(Id) {
         success: function (result) {
             debugger;
             if (!result.isError) {
-                successAlert(result.msg)
-                window.location.reload();
+                var FUrl = "/Admin/VideoStatus";
+                AcceptAlert(result.msg, FUrl)
             }
             else {
                 errorAlert(result.msg)
@@ -41,8 +41,8 @@ function RejectVideoPost(Id) {
         success: function (result) {
             debugger;
             if (!result.isError) {
-                successAlert(result.msg)
-                window.location.reload();
+                var ZUrl = "/Admin/VideoStatus";
+                rejectAlert(result.msg, ZUrl)
             }
             else {
                 errorAlert(result.msg)
@@ -53,6 +53,7 @@ function RejectVideoPost(Id) {
         }
     });
 }
+
 
 // ADMIN DELETE VIDEO THAT IS NOT ACCEPTED
 function EludeCourse(Id) {
@@ -68,8 +69,8 @@ function EludeCourse(Id) {
         success: function (result) {
             debugger;
             if (!result.isError) {
-                successAlert(result.msg)
-                window.location.reload();
+                var ElUrl = "/Admin/AllAddedCourses";
+                EludeAlert(result.msg, ElUrl)
             }
             else {
                 errorAlert(result.msg)
@@ -96,36 +97,8 @@ function DeleteItem(Id) {
         success: function (result) {
             debugger;
             if (!result.isError) {
-                successAlert(result.msg)
-                window.location.reload();
-            }
-            else {
-                errorAlert(result.msg)
-            }
-        },
-        Error: function (ex) {
-            errorAlert(ex);
-        }
-    });
-}
-
-
-// ADMIN DELETE STUDENT
-function Expell(Id) {
-    debugger;
-    $.ajax({
-        type: 'POST',
-        dataType: 'Json',
-        url: '/Admin/DeleteStudent',
-        data:
-        {
-            studentField: Id
-        },
-        success: function (result) {
-            debugger;
-            if (!result.isError) {
-                successAlert(result.msg)
-                window.location.reload();
+                var nextUrl = "/Student/AllUploadedItems";
+                successAlert(result.msg, nextUrl)
             }
             else {
                 errorAlert(result.msg)
@@ -153,6 +126,35 @@ function Achieve(Id) {
             if (!result.isError) {
                 successAlert(result.msg)
                 window.location.reload();
+            }
+            else {
+                errorAlert(result.msg)
+            }
+        },
+        Error: function (ex) {
+            errorAlert(ex);
+        }
+    });
+}
+
+
+
+// ADMIN DELETE STUDENT
+function Expell(Id) {
+    debugger;
+    $.ajax({
+        type: 'POST',
+        dataType: 'Json',
+        url: '/Admin/DeleteStudent',
+        data:
+        {
+            studentField: Id
+        },
+        success: function (result) {
+            debugger;
+            if (!result.isError) {
+                var AEUrl = "/Admin/AdminEffect";
+                successAlertWithRedirect(result.msg, AEUrl)
             }
             else {
                 errorAlert(result.msg)

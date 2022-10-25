@@ -182,6 +182,12 @@ namespace Mega_Music_School.Migrations
                     b.Property<string>("Mp3Upload")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("SongDetails")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SongTitle")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("StudentID")
                         .HasColumnType("nvarchar(450)");
 

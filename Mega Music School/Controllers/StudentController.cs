@@ -192,7 +192,6 @@ namespace Mega_Music_School.Controllers
             }
         }
 
-
         [HttpPost]
         // POST || UPLOADPROJECT
         public IActionResult UploadVideo(Video videoUpdate)
@@ -254,6 +253,8 @@ namespace Mega_Music_School.Controllers
                     {
                         VideoName = videoUpdate.VideoName,
                         VideoDetails = videoUpdate.VideoDetails,
+                        SongTitle = videoUpdate.SongTitle,
+                        SongDetails = videoUpdate.SongDetails,
                         VideoLink = videoUpdate.VideoLink,
                         Mp3Upload = mp3FilePath,
                         StudentID = userDetails.Id,
@@ -385,6 +386,54 @@ namespace Mega_Music_School.Controllers
             var myAddedCourse = _accountService.PopulateMyCoursesList();
             return View(myAddedCourse);
         }
+
+
+
+        //[HttpPost]
+        //public JsonResult ChangeUsersPassword(string userProfileDetails, string id)
+        //{
+        //    if (userProfileDetails != null && id != null)
+        //    {
+        //        var currentUser = _userManager.Users.(id);
+        //        if (currentUser != null)
+        //        {
+        //            var userDetails = JsonConvert.DeserializeObject<UserAndAdminProfile>(userProfileDetails);
+        //            if (userDetails != null)
+        //            {
+        //                if (currentUser.Password != userDetails.Password)
+        //                {
+        //                    return Json(new { isError = true, msg = "Please enter the old password correctly" });
+        //                }
+        //                if (userDetails.NewPassword != userDetails.ConfirmPassword)
+        //                {
+        //                    return Json(new { isError = true, msg = "Password and confirm password must match" });
+        //                }
+        //                var result = _userManager.ChangePasswordAsync(currentUser, userDetails.Password, userDetails.NewPassword).Result;
+        //                if (result.Succeeded)
+        //                {
+        //                    return Json(new { isError = false, msg = "User Password change Successfully", userId = currentUser.Id });
+        //                }
+        //                return Json(new { isError = false, msg = "Unable to change User Password", userId = currentUser.Id });
+        //            }
+        //            return Json(new { isError = true, msg = "Error occured" });
+        //        }
+        //    }
+        //    return Json(new { isError = true, msg = "Error occured" });
+        //}
+
+
+        //public ApplicationUser GetUserByUserId(string id)
+        //{
+        //    if (id != null)
+        //    {
+        //        var user = _context.ApplicationUsers.Where(x => x.Id == id && !x.Deactivated).FirstOrDefault();
+        //        if (user != null)
+        //        {
+        //            return user;
+        //        }
+        //    }
+        //    return null;
+        //}
 
     }
 }

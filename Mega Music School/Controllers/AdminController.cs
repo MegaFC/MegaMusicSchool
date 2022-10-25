@@ -339,7 +339,6 @@ namespace Mega_Music_School.Controllers
                 courseData.ErrorHappened = true;
                 return View(courseData);
             }
-            
         }
 
 
@@ -698,9 +697,9 @@ namespace Mega_Music_School.Controllers
 
         //UPDATE PROFILE
         [HttpGet]
-        public IActionResult AdminEffect()
+        public async Task<IActionResult>AdminEffect()
         {
-            var allStudent = _accountService.PopulateListOfStudentInTheScheme();
+            var allStudent = _accountService.PopulateListOfStudentInTheScheme().Result;
             return View(allStudent);
         }
 

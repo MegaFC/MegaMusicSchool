@@ -31,23 +31,34 @@
 
                 }
                 <form asp-controller="Student" asp-action="ViewUpload" method="post" enctype="multipart/form-data" class="row g-3">
+                    <h3>VIDEO HERE</h3>
                     <div class="col-12">
                         <label for="H.Q" class="form-label">Video Name:</label>
-                        <input asp-for="VideoName" as type="text" class="form-control" placeholder="Video Name">
+                        <input asp-for="VideoName" required type="text" class="form-control" placeholder="Video Name">
                     </div>
                     <div class="col-12">
                         <label for="H.Q" class="form-label">Video Link:</label>
-                        <input asp-for="VideoLink" type="text" class="form-control" placeholder="Video Link">
+                        <input asp-for="VideoLink" required type="text" class="form-control" placeholder="Video Link">
                     </div>
+                    <div class="form-group col-12">
+                        <textarea asp-for="VideoDetails" required class="form-control" placeholder="make a comment on your link" rows="5" id="comment"></textarea>
+                    </div>
+                    <br />
+                    <h3>SONGS HERE</h3>
                     <div class="col-12">
                         <label for="myfile">Select Mp3 file:</label>
-                        <input asp-for="Mp3RawFile" type="file" class="form-control"><br><br>
+                        <input asp-for="Mp3RawFile" required type="file" class="form-control"><br><br>
                     </div>
-                    <div class="form-group">
-                        <textarea asp-for="VideoDetails" class="form-control" placeholder="make a comment on your link" rows="5" id="comment"></textarea>
-                    </div><br />
+                    <div class="form-group col-12">
+                        <label for="H.Q" class="form-label">Song Title:</label>
+                        <input asp-for="SongTitle" required type="text" class="form-control" placeholder="Song Title">
+                    </div>
+                    <div class="col-12">
+                        <textarea asp-for="SongDetails" required class="form-control" placeholder="make a comment on your song" rows="5" id="comment"></textarea>
+                    </div>
+                    <br />
                     <div class="text-center">
-                        <button asp-action="UploadVideo" class="text-center btn btn-primary" type="submit">Submit</button>
+                        <button asp-action="UploadVideo" class="text-center btn btn-primary" type="submit" onclick="show_alert()" value="Show alert box">Submit</button>
                     </div>
                 </form>
                 <br />
@@ -56,3 +67,10 @@
         </div>
     </div>
 </div>
+
+
+<script type="text/javascript">
+    function show_alert() {
+        alert("Video and Song Uploaded Successfully!");
+    }
+</script>

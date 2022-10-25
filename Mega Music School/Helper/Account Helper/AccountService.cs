@@ -148,12 +148,12 @@ namespace Mega_Music_School.Helper
         //TRYING TO RETRIEVE COURSE SAVED IN THE DATABASE FROM THE ADMIN AND PUSHING IT TO THE LEARNING PAGE
         public List<Course> CoursesToDownload()
         {
-            var getAllCourseForDownload = _db.Courses.Include(x => x.Department).ToList();
+            var getAllCourseForDownload = _db.Courses.Where(x=> !x.Deleted).Include(x => x.Department).ToList();
 
             return getAllCourseForDownload;
         }
 
-        //Populate the List of courses Added
+        //Populate the List of courses A
         public List<Video> StudentActionOnTheirUploads()
         {
 
@@ -163,12 +163,24 @@ namespace Mega_Music_School.Helper
         }
 
         //Populate the List of courses Added
-        public List<UserAndAdminProfile> PopulateListOfStudentInTheScheme()
+        public async Task<List<UserAndAdminProfile>> PopulateListOfStudentInTheScheme()
         {
+         
+            //return a list of item in the model but the previous is just first or default
+            var listofonlystudents = new List<UserAndAdminProfile>();
+           
+            var allActiveStudentsAndAdmin = _db.UserAndAdminProfiles.Where(studentData => studentData.Expelled == false).Include(x => x.Country).Include(x => x.State).Include(x => x.LocalGovernmentArea).Include(x => x.Department).ToList();
+            foreach (var user in allActiveStudentsAndAdmin)
+            {
+                // We are checking If CurrentUser On  The Foreach Count Is A Student Using d Method from UserManager
+                var userIsAStudent = _userManager.IsInRoleAsync(user, "Student").Result;
+                if (userIsAStudent)
+                {
+                    listofonlystudents.Add(user);
+                }
+            }
 
-            var DeleteStudent = _db.UserAndAdminProfiles.Where(studentData => studentData.Expelled == false).Include(x => x.Country).Include(x => x.State).Include(x => x.LocalGovernmentArea).Include(x => x.Department).ToList();
-
-            return DeleteStudent;
+            return listofonlystudents;
         }
 
         //Populate the List of courses Added
@@ -192,3 +204,7 @@ namespace Mega_Music_School.Helper
 
     }
 }
+
+
+//   //which is perculiar to the only content in the model using first or default
+//var UserAndAdminProfile = new UserAndAdminProfile();
